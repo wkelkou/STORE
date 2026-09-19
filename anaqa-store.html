@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أناقة | متجر الملابس الجزائري</title>
+<meta name="description" content="أناقة - متجر ملابس جزائري أونلاين، اطلب ملابسك المفضلة وتصلك أينما كنت في الوطن.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   أناقة — نظام التصميم (Design Tokens)
+   ========================================================= */
+:root{
+  --color-bg:        #F2ECE1;   /* خلفية عاجية دافئة */
+  --color-surface:   #FFFFFF;   /* بطاقات */
+  --color-ink:       #1C1B19;   /* أسود دافئ للنصوص الأساسية */
+  --color-ink-soft:  #6B6459;   /* نص ثانوي */
+  --color-forest:    #2F4538;   /* أخضر غامق - اللون المميز */
+  --color-forest-2:  #253A2D;   /* أخضر أغمق للتحويم */
+  --color-ochre:     #C08A34;   /* ذهبي دافئ - للأسعار والتفاصيل */
+  --color-line:      #DED5C4;   /* خطوط فاصلة */
+  --color-danger:    #A23B2E;
+
+  --font-display: 'Cairo', 'Tahoma', sans-serif;
+  --font-body:    'Tajawal', 'Tahoma', sans-serif;
+
+  --radius-s: 6px;
+  --radius-m: 14px;
+  --container-w: 1180px;
+}
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  font-family:var(--font-body);
+  background:var(--color-bg);
+  color:var(--color-ink);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{ font-family:var(--font-display); margin:0 0 .5em; line-height:1.25; }
+p{ margin:0 0 1em; }
+a{ color:inherit; text-decoration:none; }
+img{ max-width:100%; display:block; }
+ul{ margin:0; padding:0; list-style:none; }
+button{ font-family:inherit; cursor:pointer; }
+:focus-visible{ outline:3px solid var(--color-ochre); outline-offset:2px; }
+
+.container{
+  max-width:var(--container-w);
+  margin-inline:auto;
+  padding-inline:24px;
+}
+
+.ltr-field{ direction:ltr; unicode-bidi:isolate; text-align:right; }
+
+/* أزرار */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px 30px;
+  border-radius:var(--radius-s);
+  font-weight:700;
+  font-size:1rem;
+  border:1.5px solid transparent;
+  transition:background-color .18s ease, color .18s ease, border-color .18s ease;
+}
+.btn-primary{
+  background:var(--color-forest);
+  color:#fff;
+}
+.btn-primary:hover{ background:var(--color-forest-2); }
+.btn-block{ width:100%; }
+
+/* =========================================================
+   الرأس والتنقل
+   ========================================================= */
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:40;
+  background:rgba(242,236,225,.92);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--color-line);
+}
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding-block:16px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-family:var(--font-display);
+  font-weight:800;
+  font-size:1.3rem;
+}
+.brand-mark{
+  width:38px; height:38px;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--color-forest);
+  color:#fff;
+  border-radius:var(--radius-s);
+  font-size:1.1rem;
+}
+.main-nav{
+  display:flex;
+  gap:32px;
+}
+.nav-link{
+  font-weight:500;
+  color:var(--color-ink-soft);
+  padding-block:6px;
+  border-bottom:2px solid transparent;
+  transition:color .15s ease, border-color .15s ease;
+}
+.nav-link:hover{ color:var(--color-ink); border-color:var(--color-ochre); }
+
+.nav-toggle{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  background:none;
+  border:none;
+  padding:8px;
+}
+.nav-toggle span{
+  width:24px; height:2px; background:var(--color-ink);
+  transition:transform .2s ease, opacity .2s ease;
+}
+
+/* =========================================================
+   الواجهة الرئيسية (Hero)
+   ========================================================= */
+.hero{
+  position:relative;
+  min-height:78vh;
+  display:flex;
+  align-items:flex-end;
+  overflow:hidden;
+}
+.hero-media{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(0deg, rgba(28,27,25,.72), rgba(28,27,25,.18) 55%),
+    url('https://images.unsplash.com/photo-1679212622264-646085f5653f?auto=format&fit=crop&w=1600&q=70') center/cover no-repeat;
+}
+.hero-content{
+  position:relative;
+  color:#fff;
+  padding-block:64px;
+  max-width:640px;
+}
+.hero-eyebrow{
+  font-weight:700;
+  color:#E9DCC2;
+  margin-bottom:10px;
+  letter-spacing:.02em;
+}
+.hero-title{
+  font-size:clamp(2.1rem, 4.5vw, 3.4rem);
+  color:#fff;
+}
+.hero-text{
+  font-size:1.05rem;
+  color:#EDE7DA;
+  max-width:46ch;
+}
+
+/* =========================================================
+   قسم المنتجات
+   ========================================================= */
+.products-section{ padding-block:80px; }
+.section-head{
+  text-align:center;
+  max-width:520px;
+  margin:0 auto 44px;
+}
+.section-head p{ color:var(--color-ink-soft); }
+
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(255px, 1fr));
+  gap:28px;
+}
+
+.product-card{
+  background:var(--color-surface);
+  border:1px solid var(--color-line);
+  border-radius:var(--radius-m);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+.product-image{
+  aspect-ratio:4/5;
+  width:100%;
+  object-fit:cover;
+  background:var(--color-line);
+}
+.product-body{
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  flex:1;
+}
+.product-name{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:1.05rem;
+}
+.product-price{
+  color:var(--color-ochre);
+  font-weight:700;
+  font-size:1.05rem;
+}
+.field-group{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  font-size:.88rem;
+  color:var(--color-ink-soft);
+}
+.field-group select,
+.field-group input[type="number"]{
+  width:100%;
+  padding:9px 10px;
+  border-radius:var(--radius-s);
+  border:1px solid var(--color-line);
+  background:#fff;
+  font-family:inherit;
+  font-size:.95rem;
+  color:var(--color-ink);
+}
+.color-options{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.color-dot{
+  width:26px; height:26px;
+  border-radius:50%;
+  border:2px solid var(--color-line);
+  cursor:pointer;
+  position:relative;
+}
+.color-dot.selected{ border-color:var(--color-forest); }
+.color-dot.selected::after{
+  content:"";
+  position:absolute; inset:5px;
+  border-radius:50%;
+  border:2px solid #fff;
+}
+.order-btn{
+  margin-top:auto;
+  width:100%;
+  padding:11px;
+  border-radius:var(--radius-s);
+  border:1.5px solid var(--color-forest);
+  background:transparent;
+  color:var(--color-forest);
+  font-weight:700;
+  transition:background-color .15s ease, color .15s ease;
+}
+.order-btn:hover{ background:var(--color-forest); color:#fff; }
+
+/* =========================================================
+   من نحن
+   ========================================================= */
+.about-section{ padding-block:80px; background:#fff; border-block:1px solid var(--color-line); }
+.about-inner{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:56px;
+  align-items:center;
+}
+.about-points{ display:flex; flex-direction:column; gap:10px; margin-top:16px; }
+.about-points li{
+  padding-inline-start:26px;
+  position:relative;
+  color:var(--color-ink-soft);
+}
+.about-points li::before{
+  content:"";
+  position:absolute;
+  inset-inline-start:0;
+  top:.55em;
+  width:8px; height:8px;
+  background:var(--color-ochre);
+  border-radius:50%;
+}
+.about-media{
+  aspect-ratio:4/3;
+  border-radius:var(--radius-m);
+  background:
+    url('https://images.unsplash.com/photo-1749928439074-be9238bf1bee?auto=format&fit=crop&w=900&q=70') center/cover no-repeat;
+}
+
+/* =========================================================
+   تواصل معنا
+   ========================================================= */
+.contact-section{ padding-block:80px; }
+.contact-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+  gap:20px;
+}
+.contact-card{
+  background:var(--color-surface);
+  border:1px solid var(--color-line);
+  border-radius:var(--radius-m);
+  padding:24px;
+  text-align:center;
+}
+.contact-card h3{ font-size:1rem; color:var(--color-ink-soft); margin-bottom:8px; }
+
+/* =========================================================
+   التذييل
+   ========================================================= */
+.site-footer{
+  padding-block:26px;
+  border-top:1px solid var(--color-line);
+  text-align:center;
+  color:var(--color-ink-soft);
+  font-size:.9rem;
+}
+
+/* =========================================================
+   نافذة الطلب المنبثقة
+   ========================================================= */
+.modal-overlay{
+  position:fixed; inset:0;
+  background:rgba(28,27,25,.55);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:100;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .18s ease;
+}
+.modal-overlay.open{ opacity:1; pointer-events:auto; }
+.modal{
+  background:#fff;
+  border-radius:var(--radius-m);
+  padding:30px;
+  width:100%;
+  max-width:480px;
+  max-height:88vh;
+  overflow-y:auto;
+  position:relative;
+  transform:translateY(12px);
+  transition:transform .18s ease;
+}
+.modal-overlay.open .modal{ transform:translateY(0); }
+.modal-close{
+  position:absolute;
+  top:14px; inset-inline-end:14px;
+  background:none; border:none;
+  font-size:1.6rem;
+  line-height:1;
+  color:var(--color-ink-soft);
+}
+.order-summary{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding:12px;
+  background:var(--color-bg);
+  border-radius:var(--radius-s);
+  margin-bottom:20px;
+}
+.order-summary img{
+  width:56px; height:70px;
+  object-fit:cover;
+  border-radius:6px;
+}
+.order-summary-name{ font-weight:700; }
+.order-summary-price{ color:var(--color-ochre); font-weight:700; font-size:.92rem; }
+
+.form-row{ margin-bottom:16px; }
+.form-row label{
+  display:block;
+  font-size:.88rem;
+  color:var(--color-ink-soft);
+  margin-bottom:6px;
+}
+.form-row input[type="text"],
+.form-row input[type="tel"],
+.form-row select,
+.form-row textarea{
+  width:100%;
+  padding:11px 12px;
+  border-radius:var(--radius-s);
+  border:1px solid var(--color-line);
+  font-family:inherit;
+  font-size:.95rem;
+  color:var(--color-ink);
+  resize:vertical;
+}
+.form-row-split{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.readonly-pill{
+  padding:11px 12px;
+  border-radius:var(--radius-s);
+  background:var(--color-bg);
+  border:1px solid var(--color-line);
+  font-weight:700;
+  font-size:.92rem;
+}
+.qty-control{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.qty-btn{
+  width:38px; height:38px;
+  border-radius:var(--radius-s);
+  border:1px solid var(--color-line);
+  background:var(--color-bg);
+  font-size:1.1rem;
+  font-weight:700;
+}
+.qty-control input{
+  width:70px;
+  text-align:center;
+  padding:9px;
+  border-radius:var(--radius-s);
+  border:1px solid var(--color-line);
+  font-family:inherit;
+  font-size:.95rem;
+}
+.order-total{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 0;
+  border-top:1px dashed var(--color-line);
+  margin-bottom:16px;
+  font-size:1.05rem;
+}
+.order-total strong{ color:var(--color-ochre); font-size:1.2rem; }
+.form-message{
+  min-height:1.4em;
+  font-size:.9rem;
+  font-weight:700;
+}
+.form-message.success{ color:var(--color-forest); }
+.form-message.error{ color:var(--color-danger); }
+
+/* =========================================================
+   الاستجابة للشاشات الصغيرة
+   ========================================================= */
+@media (max-width: 860px){
+  .about-inner{ grid-template-columns:1fr; }
+  .about-media{ order:-1; }
+}
+
+@media (max-width: 720px){
+  .nav-toggle{ display:flex; }
+  .main-nav{
+    position:absolute;
+    top:100%; right:0; left:0;
+    background:var(--color-bg);
+    border-bottom:1px solid var(--color-line);
+    flex-direction:column;
+    gap:0;
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .22s ease;
+  }
+  .main-nav.open{ max-height:280px; }
+  .main-nav .nav-link{
+    padding:16px 24px;
+    border-bottom:1px solid var(--color-line);
+  }
+  .form-row-split{ grid-template-columns:1fr; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none !important; scroll-behavior:auto !important; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ===================== الرأس والتنقل ===================== -->
+<header class="site-header" id="top">
+  <div class="header-inner container">
+    <a href="#top" class="brand">
+      <span class="brand-mark">أ</span>
+      <span class="brand-name">أناقة</span>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="#top" class="nav-link">الرئيسية</a>
+      <a href="#products" class="nav-link">المنتجات</a>
+      <a href="#about" class="nav-link">من نحن</a>
+      <a href="#contact" class="nav-link">تواصل معنا</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-label="فتح القائمة" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===================== قسم الواجهة الرئيسية ===================== -->
+<section class="hero">
+  <div class="hero-media" role="img" aria-label="إطلالة أناقة الجديدة"></div>
+  <div class="hero-content container">
+    <p class="hero-eyebrow">مجموعة الخريف ٢٠٢٦</p>
+    <h1 class="hero-title">أناقتك تبدأ من هنا</h1>
+    <p class="hero-text">قطع مختارة بعناية، جودة تدوم، وتوصيل إلى باب بيتك في كل ولايات الوطن.</p>
+    <a href="#products" class="btn btn-primary">تسوّق الآن</a>
+  </div>
+</section>
+
+<!-- ===================== قسم المنتجات ===================== -->
+<section class="products-section" id="products">
+  <div class="container">
+    <div class="section-head">
+      <h2>منتجاتنا</h2>
+      <p>اختر مقاسك ولونك المفضل، واطلب بضغطة واحدة.</p>
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+      <!-- تُملأ تلقائيًا بواسطة script.js -->
+    </div>
+  </div>
+</section>
+
+<!-- ===================== قسم من نحن ===================== -->
+<section class="about-section" id="about">
+  <div class="container about-inner">
+    <div class="about-text">
+      <h2>من نحن</h2>
+      <p>
+        "أناقة" متجر جزائري متخصص في الملابس الجاهزة للرجال والنساء. نؤمن بأن اللباس الجيد
+        لا يحتاج أن يكون معقدًا أو مكلفًا. نختار قطعنا بعناية من حيث القماش والخياطة،
+        ونوصلها إليك أينما كنت داخل الجزائر، مع إمكانية الدفع عند الاستلام.
+      </p>
+      <ul class="about-points">
+        <li>توصيل إلى ٥٨ ولاية</li>
+        <li>الدفع عند الاستلام</li>
+        <li>إمكانية تبديل المقاس</li>
+      </ul>
+    </div>
+    <div class="about-media" role="img" aria-label="ورشة أناقة"></div>
+  </div>
+</section>
+
+<!-- ===================== قسم التواصل ===================== -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="section-head">
+      <h2>تواصل معنا</h2>
+      <p>عندك سؤال عن طلبك أو عن مقاس معيّن؟ نحن هنا.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3>الهاتف</h3>
+        <p dir="ltr" class="ltr-field">0555 12 34 56</p>
+      </div>
+      <div class="contact-card">
+        <h3>البريد الإلكتروني</h3>
+        <p dir="ltr" class="ltr-field">contact@anaqa-store.dz</p>
+      </div>
+      <div class="contact-card">
+        <h3>أوقات العمل</h3>
+        <p>السبت - الخميس، ٩:٠٠ صباحًا - ٦:٠٠ مساءً</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== التذييل ===================== -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>© <span id="year"></span> أناقة. جميع الحقوق محفوظة.</p>
+  </div>
+</footer>
+
+<!-- ===================== نافذة الطلب المنبثقة ===================== -->
+<div class="modal-overlay" id="orderModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="إغلاق">×</button>
+    <h2 id="modalTitle">إتمام الطلب</h2>
+
+    <div class="order-summary" id="orderSummary">
+      <!-- تُملأ ديناميكيًا: اسم المنتج، الصورة، السعر -->
+    </div>
+
+    <form id="orderForm" novalidate>
+      <input type="hidden" id="f_productId" name="productId">
+
+      <div class="form-row">
+        <label for="f_fullname">الاسم الكامل</label>
+        <input type="text" id="f_fullname" name="fullname" placeholder="مثال: أمين بلحاج" required>
+      </div>
+
+      <div class="form-row">
+        <label for="f_phone">رقم الهاتف</label>
+        <input type="tel" id="f_phone" name="phone" dir="ltr" class="ltr-field" placeholder="0555xxxxxx" required>
+      </div>
+
+      <div class="form-row form-row-split">
+        <div>
+          <label for="f_wilaya">الولاية</label>
+          <select id="f_wilaya" name="wilaya" required></select>
+        </div>
+        <div>
+          <label for="f_commune">البلدية</label>
+          <input type="text" id="f_commune" name="commune" placeholder="اسم البلدية" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label for="f_address">العنوان بالتفصيل</label>
+        <textarea id="f_address" name="address" rows="2" placeholder="الحي، الشارع، رقم المنزل..." required></textarea>
+      </div>
+
+      <div class="form-row form-row-split form-row-readonly">
+        <div>
+          <label>المقاس</label>
+          <div class="readonly-pill" id="f_size_display">-</div>
+        </div>
+        <div>
+          <label>اللون</label>
+          <div class="readonly-pill" id="f_color_display">-</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label for="f_quantity">الكمية</label>
+        <div class="qty-control">
+          <button type="button" class="qty-btn" id="qtyMinus" aria-label="إنقاص الكمية">−</button>
+          <input type="number" id="f_quantity" name="quantity" min="1" value="1" required>
+          <button type="button" class="qty-btn" id="qtyPlus" aria-label="زيادة الكمية">+</button>
+        </div>
+      </div>
+
+      <div class="order-total">
+        <span>السعر الإجمالي</span>
+        <strong id="f_total">٠ دج</strong>
+      </div>
+
+      <p class="form-message" id="formMessage" role="status"></p>
+
+      <button type="submit" class="btn btn-primary btn-block" id="submitOrderBtn">تأكيد الطلب</button>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* =========================================================
+   أناقة — script.js
+   المنتجات الآن تُجلب مباشرة من قاعدة بيانات Supabase (وليست
+   مكتوبة يدويًا هنا)، وكل طلب يرسله الزبون يُحفظ فعليًا في
+   جدول "orders". أي منتج تضيفه أو تعدّله من لوحة التحكم
+   سيظهر هنا تلقائيًا بدون أي تعديل على هذا الملف.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   0) الاتصال بـ Supabase
+--------------------------------------------------------- */
+const SUPABASE_URL = "https://gthcyrrdvcimniebhmgz.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_TTO-ITCP8oKOW-QzM-FQxg_g-1ZGp-N";
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+/* ---------------------------------------------------------
+   1) قائمة ولايات الجزائر (٥٨ ولاية)
+--------------------------------------------------------- */
+const WILAYAS = [
+  "أدرار","الشلف","الأغواط","أم البواقي","باتنة","بجاية","بسكرة","بشار",
+  "البليدة","البويرة","تمنراست","تبسة","تلمسان","تيارت","تيزي وزو","الجزائر",
+  "الجلفة","جيجل","سطيف","سعيدة","سكيكدة","سيدي بلعباس","عنابة","قالمة",
+  "قسنطينة","المدية","مستغانم","المسيلة","معسكر","ورقلة","وهران","البيض",
+  "إليزي","برج بوعريريج","بومرداس","الطارف","تندوف","تيسمسيلت","الوادي",
+  "خنشلة","سوق أهراس","تيبازة","ميلة","عين الدفلى","النعامة","عين تموشنت",
+  "غرداية","غليزان","تيميمون","برج باجي مختار","أولاد جلال","بني عباس",
+  "إن صالح","إن قزام","تقرت","جانت","المغير","المنيعة"
+];
+
+/* ---------------------------------------------------------
+   2) أدوات مساعدة عامة
+--------------------------------------------------------- */
+function formatPrice(value) {
+  return Number(value).toLocaleString("ar-DZ") + " دج";
+}
+
+let PRODUCTS = []; // تُملأ من Supabase عند تحميل الصفحة
+
+function getProductById(id) {
+  return PRODUCTS.find(function (p) { return p.id === id; });
+}
+
+/* ---------------------------------------------------------
+   3) جلب المنتجات من Supabase وعرضها
+   نجلب فقط المنتجات غير المخفية (is_hidden = false).
+   لا نعرض رقم المخزون للزبون أبدًا — فقط "متوفر" أو "نفدت الكمية".
+--------------------------------------------------------- */
+const productsGrid = document.getElementById("productsGrid");
+
+async function loadProducts() {
+  productsGrid.innerHTML = '<p style="text-align:center;color:var(--color-ink-soft);grid-column:1/-1;">جارٍ تحميل المنتجات...</p>';
+
+  const { data, error } = await supabaseClient
+    .from("products")
+    .select("*")
+    .eq("is_hidden", false)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    productsGrid.innerHTML = '<p style="text-align:center;color:var(--color-danger);grid-column:1/-1;">تعذّر تحميل المنتجات، حاول تحديث الصفحة.</p>';
+    return;
+  }
+
+  PRODUCTS = data || [];
+  renderProducts();
+}
+
+function renderProducts() {
+  if (PRODUCTS.length === 0) {
+    productsGrid.innerHTML = '<p style="text-align:center;color:var(--color-ink-soft);grid-column:1/-1;">لا توجد منتجات متوفرة حاليًا.</p>';
+    return;
+  }
+
+  productsGrid.innerHTML = "";
+
+  PRODUCTS.forEach(function (product) {
+    const inStock = product.stock_quantity > 0;
+
+    const card = document.createElement("article");
+    card.className = "product-card";
+    card.dataset.productId = product.id;
+
+    const sizeOptions = (product.sizes || [])
+      .map(function (s) { return '<option value="' + s + '">' + s + "</option>"; })
+      .join("");
+
+    const colorDots = (product.colors || [])
+      .map(function (c, index) {
+        const selectedClass = index === 0 ? " selected" : "";
+        return (
+          '<button type="button" class="color-dot' + selectedClass + '" ' +
+          'style="background:' + c.hex + '" ' +
+          'data-color="' + c.name + '" aria-label="' + c.name + '"></button>'
+        );
+      })
+      .join("");
+
+    const imageUrl = product.image_url || "https://placehold.co/600x750/F2ECE1/6B6459?text=" + encodeURIComponent(product.name);
+
+    const availabilityBadge = inStock
+      ? ""
+      : '<p style="color:var(--color-danger);font-weight:700;font-size:.85rem;margin:0 0 8px;">نفدت الكمية حاليًا</p>';
+
+    const orderButtonHtml = inStock
+      ? '<button type="button" class="order-btn">اطلب الآن</button>'
+      : '<button type="button" class="order-btn" disabled style="opacity:.5;cursor:not-allowed;">نفدت الكمية</button>';
+
+    card.innerHTML =
+      '<img class="product-image" src="' + imageUrl + '" alt="' + product.name + '" loading="lazy">' +
+      '<div class="product-body">' +
+        '<h3 class="product-name">' + product.name + "</h3>" +
+        '<p class="product-price">' + formatPrice(product.price) + "</p>" +
+        availabilityBadge +
+
+        '<div class="field-group">' +
+          "<label>المقاس</label>" +
+          '<select class="size-select">' + sizeOptions + "</select>" +
+        "</div>" +
+
+        '<div class="field-group">' +
+          "<label>اللون</label>" +
+          '<div class="color-options">' + colorDots + "</div>" +
+        "</div>" +
+
+        '<div class="field-group">' +
+          "<label>الكمية</label>" +
+          '<input type="number" class="qty-input" min="1" value="1"' + (inStock ? "" : " disabled") + '>' +
+        "</div>" +
+
+        orderButtonHtml +
+      "</div>";
+
+    productsGrid.appendChild(card);
+  });
+}
+
+/* عند الضغط على أي لون داخل بطاقة منتج، نبدّل حالة "selected" */
+productsGrid.addEventListener("click", function (event) {
+  const dot = event.target.closest(".color-dot");
+  if (!dot) return;
+
+  const card = dot.closest(".product-card");
+  card.querySelectorAll(".color-dot").forEach(function (el) {
+    el.classList.remove("selected");
+  });
+  dot.classList.add("selected");
+});
+
+/* عند الضغط على "اطلب الآن" داخل أي بطاقة */
+productsGrid.addEventListener("click", function (event) {
+  const btn = event.target.closest(".order-btn");
+  if (!btn || btn.disabled) return;
+
+  const card = btn.closest(".product-card");
+  const productId = card.dataset.productId;
+  const size = card.querySelector(".size-select").value;
+  const selectedDot = card.querySelector(".color-dot.selected");
+  const color = selectedDot ? selectedDot.dataset.color : "";
+  const quantity = parseInt(card.querySelector(".qty-input").value, 10) || 1;
+
+  openOrderModal(productId, size, color, quantity);
+});
+
+/* ---------------------------------------------------------
+   4) نافذة الطلب المنبثقة
+--------------------------------------------------------- */
+const orderModal = document.getElementById("orderModal");
+const orderForm = document.getElementById("orderForm");
+const orderSummary = document.getElementById("orderSummary");
+const formMessage = document.getElementById("formMessage");
+
+const fProductId = document.getElementById("f_productId");
+const fSizeDisplay = document.getElementById("f_size_display");
+const fColorDisplay = document.getElementById("f_color_display");
+const fQuantity = document.getElementById("f_quantity");
+const fTotal = document.getElementById("f_total");
+const fWilaya = document.getElementById("f_wilaya");
+
+/* تعبئة قائمة الولايات مرة واحدة عند تحميل الصفحة */
+function populateWilayas() {
+  fWilaya.innerHTML = '<option value="" disabled selected>اختر الولاية</option>';
+  WILAYAS.forEach(function (name, index) {
+    const option = document.createElement("option");
+    option.value = name;
+    option.textContent = (index + 1) + " - " + name;
+    fWilaya.appendChild(option);
+  });
+}
+
+let currentProduct = null;
+let currentSize = "";
+let currentColor = "";
+
+function openOrderModal(productId, size, color, quantity) {
+  currentProduct = getProductById(productId);
+  if (!currentProduct) return;
+
+  currentSize = size;
+  currentColor = color;
+
+  fProductId.value = productId;
+  fSizeDisplay.textContent = size;
+  fColorDisplay.textContent = color;
+  fQuantity.value = quantity;
+
+  const imageUrl = currentProduct.image_url || "https://placehold.co/200x250/F2ECE1/6B6459?text=" + encodeURIComponent(currentProduct.name);
+
+  orderSummary.innerHTML =
+    '<img src="' + imageUrl + '" alt="' + currentProduct.name + '">' +
+    "<div>" +
+      '<div class="order-summary-name">' + currentProduct.name + "</div>" +
+      '<div class="order-summary-price">' + formatPrice(currentProduct.price) + " / للقطعة</div>" +
+    "</div>";
+
+  updateTotal();
+  formMessage.textContent = "";
+  formMessage.className = "form-message";
+
+  orderModal.classList.add("open");
+  orderModal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closeOrderModal() {
+  orderModal.classList.remove("open");
+  orderModal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+  orderForm.reset();
+}
+
+function updateTotal() {
+  if (!currentProduct) return;
+  const qty = Math.max(1, parseInt(fQuantity.value, 10) || 1);
+  fTotal.textContent = formatPrice(currentProduct.price * qty);
+}
+
+document.getElementById("modalClose").addEventListener("click", closeOrderModal);
+orderModal.addEventListener("click", function (event) {
+  if (event.target === orderModal) closeOrderModal();
+});
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape" && orderModal.classList.contains("open")) {
+    closeOrderModal();
+  }
+});
+
+fQuantity.addEventListener("input", updateTotal);
+document.getElementById("qtyPlus").addEventListener("click", function () {
+  fQuantity.value = (parseInt(fQuantity.value, 10) || 1) + 1;
+  updateTotal();
+});
+document.getElementById("qtyMinus").addEventListener("click", function () {
+  fQuantity.value = Math.max(1, (parseInt(fQuantity.value, 10) || 1) - 1);
+  updateTotal();
+});
+
+/* ---------------------------------------------------------
+   5) التحقق من صحة رقم الهاتف الجزائري
+   يقبل: 05/06/07 متبوعًا بـ 8 أرقام (10 أرقام إجمالًا)
+--------------------------------------------------------- */
+function isValidAlgerianPhone(value) {
+  const cleaned = value.replace(/\s+/g, "");
+  return /^0[567][0-9]{8}$/.test(cleaned);
+}
+
+/* ---------------------------------------------------------
+   6) إرسال الطلب — يُحفظ الآن فعليًا في جدول orders بـ Supabase
+--------------------------------------------------------- */
+orderForm.addEventListener("submit", async function (event) {
+  event.preventDefault();
+
+  const fullname = document.getElementById("f_fullname").value.trim();
+  const phone = document.getElementById("f_phone").value.trim();
+  const wilaya = fWilaya.value;
+  const commune = document.getElementById("f_commune").value.trim();
+  const address = document.getElementById("f_address").value.trim();
+  const quantity = Math.max(1, parseInt(fQuantity.value, 10) || 1);
+
+  if (!fullname || !phone || !wilaya || !commune || !address) {
+    formMessage.textContent = "الرجاء تعبئة جميع الحقول المطلوبة.";
+    formMessage.className = "form-message error";
+    return;
+  }
+
+  if (!isValidAlgerianPhone(phone)) {
+    formMessage.textContent = "رقم الهاتف غير صحيح. مثال صحيح: 0555123456";
+    formMessage.className = "form-message error";
+    return;
+  }
+
+  const submitBtn = document.getElementById("submitOrderBtn");
+  submitBtn.disabled = true;
+  formMessage.textContent = "جارٍ إرسال طلبك...";
+  formMessage.className = "form-message";
+
+  const { error } = await supabaseClient.from("orders").insert([{
+    product_id: currentProduct.id,
+    product_name: currentProduct.name,
+    unit_price: currentProduct.price,
+    size: currentSize,
+    color: currentColor,
+    quantity: quantity,
+    total_price: currentProduct.price * quantity,
+    full_name: fullname,
+    phone: phone,
+    wilaya: wilaya,
+    commune: commune,
+    address: address
+  }]);
+
+  if (error) {
+    formMessage.textContent = "حدث خطأ أثناء إرسال الطلب، حاول مرة أخرى.";
+    formMessage.className = "form-message error";
+    submitBtn.disabled = false;
+    return;
+  }
+
+  formMessage.textContent = "تم استلام طلبك بنجاح! سنتصل بك قريبًا لتأكيد الطلب.";
+  formMessage.className = "form-message success";
+
+  setTimeout(function () {
+    submitBtn.disabled = false;
+    closeOrderModal();
+  }, 1800);
+});
+
+/* ---------------------------------------------------------
+   7) قائمة الهاتف المتنقلة
+--------------------------------------------------------- */
+const navToggle = document.getElementById("navToggle");
+const mainNav = document.getElementById("mainNav");
+
+navToggle.addEventListener("click", function () {
+  const isOpen = mainNav.classList.toggle("open");
+  navToggle.setAttribute("aria-expanded", String(isOpen));
+});
+
+mainNav.addEventListener("click", function (event) {
+  if (event.target.classList.contains("nav-link")) {
+    mainNav.classList.remove("open");
+    navToggle.setAttribute("aria-expanded", "false");
+  }
+});
+
+/* ---------------------------------------------------------
+   8) التهيئة عند تحميل الصفحة
+--------------------------------------------------------- */
+document.getElementById("year").textContent = new Date().getFullYear();
+populateWilayas();
+loadProducts();
+
+</script>
+</body>
+</html>
